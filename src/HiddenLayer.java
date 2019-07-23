@@ -21,4 +21,8 @@ public class HiddenLayer extends Layer {
         }
         return child.feedSample(new DataVector(dimensions));
     }
+
+    public void backprop(){
+
+    }
 }

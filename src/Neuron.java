@@ -4,7 +4,6 @@ public class Neuron {
     private double activation;
     private double derivation;
 
-
     public double feedForward(ArrayList<Double> inputs, ArrayList<Double> weights){
         //should check for inputs.size != weights.size exception
         double scalar = scalar(inputs, weights);

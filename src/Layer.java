@@ -5,6 +5,7 @@ public abstract class Layer {
     protected double[][] weights;
     protected Layer parent;
     protected Layer child;
+    protected double learningrate = 0.2;
 
 
     //constructor for Input-Layer

@@ -36,16 +36,24 @@ public class Network {
             error(output,i);
             predict(output, i);
         }
-
     }
 
-    public double error(DataVector output, int dataIndex){
-        double error = 0;
+    public void backprop(){
+        ArrayList<Double> errorVector = error();
+        outputLayer.backprop(errorVector);
+        hiddenLayer.backprop();
+    }
+
+    //error as vector
+
+
+    //error added up
+    public ArrayList<Double> error(DataVector output, int dataIndex){
+        ArrayList<Double> errorVector = new ArrayList<>();
         for(int dimension = 0; dimension < output.getVector().size(); dimension++){
-            error += oracle.get(dataIndex).getTruths().get(dimension) - output.getVector().get(dimension);
+            errorVector.add(oracle.get(dataIndex).getTruths().get(dimension) - output.getVector().get(dimension));
         }
-        error = Math.pow(error, 2)/2;
-        return error;
+        return errorVector;
     }
 
     public DataVector predict(DataVector output, int dataIndex){
