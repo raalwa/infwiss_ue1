@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
 public class OutputLayer extends Layer {
+
     private DataVector predecessorValues;
+    //sumList stores the sum of error*derivation*weights for hiddenLayer
+    private ArrayList<Double> sumList;
+
     public OutputLayer(int v, int a){
         super(v,a);
     }
@@ -27,12 +31,22 @@ public class OutputLayer extends Layer {
         for(int k = 0; k<weights.length; k++){
             double error = errorVector.get(k);
             double derivation = neurons.get(k).getDerivation();
-            double sum = error * derivation;
             //j iteriert über die Gewichte vom HiddenLayer zum jeweiligen Knoten
             for(int j = 0; j<weights[k].length; j++){
                 weights[k][j] = weights[k][j] - learningrate * error * derivation * predecessorValues.getVector().get(j);
-
             }
+        }
+    }
+
+    public void populateSumlist(ArrayList<Double> errorVector, double currentWeight){
+
+        for(int k = 0; k < weights.length; k++){
+            double error = errorVector.get(k);
+            double derivation = neurons.get(k).getDerivation();
+            for(int j = 0; j <weights[k].length; j++){
+                weights[k][j] *= error*derivation;
+            }
+
         }
     }
 }
