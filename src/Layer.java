@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Layer {
@@ -10,6 +11,7 @@ public abstract class Layer {
 
     //constructor for Input-Layer
     public Layer(int a){
+        neurons = new ArrayList<>();
         for(int i = 0; i < a; i++){
             addNeuron();
         }
@@ -18,7 +20,6 @@ public abstract class Layer {
     //contructor for hidden-Layer and Output-Layer
     public Layer(int v, int a){
         this(a);
-
         weights = new double[v][a];
         for(int i = 0; i < weights.length;i++){
             for(int j = 0; j < weights[i].length;j++){
@@ -40,5 +41,9 @@ public abstract class Layer {
         this.child = child;
     }
 
-    protected abstract DataVector feedSample(DataVector vector);
+    protected abstract ArrayList<Double> feedSample(ArrayList<Double> vector);
+
+    public double[][] getWeights() {
+        return weights;
+    }
 }

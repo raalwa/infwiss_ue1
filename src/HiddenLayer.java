@@ -7,22 +7,41 @@ public class HiddenLayer extends Layer {
         super(v,a);
     }
 
+    private ArrayList<Double> predecessorValues;
+
     @Override
-    public DataVector feedSample(DataVector predecessorValues){
+    public ArrayList<Double> feedSample(ArrayList<Double> predecessorValues){
+        System.out.println("Weights in Hidden Layer: " + weights[0][0]);
+        this.predecessorValues = predecessorValues;
         ArrayList<Double> dimensions = new ArrayList<Double>();
         for (int i = 0; i < neurons.size(); i++){
-            //jedem Neuron die passenden Gewichte und den vector übergeben
+            //jedem Neuron die passenden Gewichte und den input-vector übergeben
             ArrayList<Double> correspondingWeights = new ArrayList<Double>();
-            for (int j = 0; j <weights.length; j++){
-                correspondingWeights.add(weights[i][j]);
+            for (int j = 0; j < predecessorValues.size() ; j++){
+                correspondingWeights.add(weights[j][i]);
             }
-            double dimension = neurons.get(i).feedForward(predecessorValues.getVector(),correspondingWeights);
+            double dimension = neurons.get(i).feedForward(predecessorValues,correspondingWeights);
             dimensions.add(dimension);
+            //System.out.println("Dimensionen des Vektors von Hidden an Output: " + dimension);
         }
-        return child.feedSample(new DataVector(dimensions));
+
+        return child.feedSample(dimensions);
     }
 
-    public void backprop(){
-
+    public void backprop(ArrayList<Double> sumList){
+        //Iteration über eigene Gewichte
+        //Vorgängerwerte
+        //lernrate
+        //Ableitungen der Knoten
+        //Summenliste aus Output-Layer
+        for(int h = 0; h < neurons.size(); h++){
+            double currentDerivation = neurons.get(h).getDerivation();
+            double currentSum = sumList.get(h);
+            for(int c = 0; c < predecessorValues.size(); c++){
+                double currentInputValue = predecessorValues.get(c);
+                double currentWeight = weights[h][c];
+                weights[h][c] = currentWeight - learningrate*currentInputValue*currentDerivation*currentSum;
+            }
+        }
     }
 }

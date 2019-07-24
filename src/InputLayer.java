@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class InputLayer extends Layer {
@@ -6,7 +7,7 @@ public class InputLayer extends Layer {
     }
 
     @Override
-    public DataVector feedSample(DataVector vector){
+    public ArrayList<Double> feedSample(ArrayList<Double> vector){
         return child.feedSample(vector);
     }
 }
