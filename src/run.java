@@ -10,7 +10,7 @@ public class run {
         GroundTruth groundTruth =new GroundTruth(reader.getGroundTruth());
         ArrayList<DataVector> sampleVectors = reader.getsampleVectors();
         Network network = new Network(sampleVectors, groundTruth);
-        network.feedSample();
+        network.epoch();
     }
     public static void main(String [] args) {
         init();

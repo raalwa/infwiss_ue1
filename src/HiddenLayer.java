@@ -11,7 +11,7 @@ public class HiddenLayer extends Layer {
 
     @Override
     public ArrayList<Double> feedSample(ArrayList<Double> predecessorValues){
-        System.out.println("Weights in Hidden Layer: " + weights[0][0]);
+        //System.out.println("Weights in Hidden Layer: " + weights[0][0]);
         this.predecessorValues = predecessorValues;
         ArrayList<Double> dimensions = new ArrayList<Double>();
         for (int i = 0; i < neurons.size(); i++){
@@ -39,8 +39,10 @@ public class HiddenLayer extends Layer {
             double currentSum = sumList.get(h);
             for(int c = 0; c < predecessorValues.size(); c++){
                 double currentInputValue = predecessorValues.get(c);
-                double currentWeight = weights[h][c];
-                weights[h][c] = currentWeight - learningrate*currentInputValue*currentDerivation*currentSum;
+                double currentWeight = weights[c][h];
+                //System.out.println("Weight vor backprop: "+ currentWeight);
+                weights[c][h] = currentWeight - learningrate*currentInputValue*currentDerivation*currentSum;
+                //System.out.println("Weight nach backprop: "+ weights[c][h]);
             }
         }
     }

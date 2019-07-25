@@ -32,18 +32,27 @@ public class Network {
 
     }
 
-    public void feedSample(){
+    public void epoch(){
+        for(int j = 0; j < data.size(); j++){
+            int random = (int)Math.round(Math.random()*(data.size()-1));
+            //System.out.println(random);
+            feedSample(j);
+            backprop();
+        }
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("Ground Truth des Datensatzes: " +oracle.getTruths().get(12569)[0] + " " + oracle.getTruths().get(12569)[1]);
+        feedSample(12569);
+
+    }
+
+    public void feedSample(int i){
         //randomise
-
-        //for(int i = 0; i < data.size(); i++){
-        ArrayList<Double> output = inputLayer.feedSample(data.get(0).getVector());
-            System.out.println("Output-Vektor: " + output);
-            errorVector = error(output,0);
-            ArrayList<Double> predictedVector = predict(output, 0);
-
-            System.out.println("Error-Vektor: " + errorVector);
-            System.out.println("Predicted-Vektor: " + predictedVector);
-        //}
+        ArrayList<Double> output = inputLayer.feedSample(data.get(i).getVector());
+        //System.out.println("Output-Vektor: " + output);
+        errorVector = error(output,i);
+        ArrayList<Double> predictedVector = predict(output, 0);
+        System.out.println("Error-Vektor: " + errorVector);
+        System.out.println("Predicted-Vektor: " + predictedVector);
     }
 
     public void backprop(){
