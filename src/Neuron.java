@@ -5,10 +5,8 @@ public class Neuron {
     private double derivation;
 
     public double feedForward(ArrayList<Double> inputs, ArrayList<Double> weights){
-        //should check for inputs.size != weights.size exception
         double scalar = scalar(inputs, weights);
-        double activation = Math.tanh(scalar);
-        this.activation = activation;
+        activation = Math.tanh(scalar);
         derivation = 1 - Math.pow(activation, 2);
         return activation;
     }

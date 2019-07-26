@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 
 public class GroundTruth {
-    private double[] TCROSSING = {0,0};
-    private final double[] PLUSCROSSING = {0,1};
-    private final double[] RIGHTTURN = {1,0};
-    private final double[] LEFTTURN = {1,1};
+
+    //assigns a vector to every possible target value
+    private double[] TCROSSING = {1,0,0,0};
+    private final double[] PLUSCROSSING = {0,1,0,0};
+    private final double[] RIGHTTURN = {0,0,1,0};
+    private final double[] LEFTTURN = {0,0,0,1};
 
     private ArrayList<double[]> encodedTruths;
 

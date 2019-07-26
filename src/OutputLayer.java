@@ -28,16 +28,16 @@ public class OutputLayer extends Layer {
     }
 
     public void backprop(ArrayList<Double> errorVector){
+        populateSumlist(errorVector);
         //k iteriert über die Knoten im Output-Layer
         for(int k = 0; k<weights[0].length; k++){
             double error = errorVector.get(k);
             double derivation = neurons.get(k).getDerivation();
             //j iteriert über die Gewichte vom HiddenLayer zum jeweiligen Knoten
             for(int j = 0; j<weights[k].length; j++){
-                weights[k][j] = weights[k][j] - learningrate * error * derivation * predecessorValues.get(j);
+                weights[k][j] = weights[k][j] - learningrate * -error * derivation * predecessorValues.get(j);
             }
         }
-        populateSumlist(errorVector);
     }
 
     public void populateSumlist(ArrayList<Double> errorVector){
@@ -49,7 +49,7 @@ public class OutputLayer extends Layer {
             double error = errorVector.get(k);
             double derivation = neurons.get(k).getDerivation();
             for(int j = 0; j <computedWeights.length; j++){
-                computedWeights[j][k] *= error*derivation;
+                computedWeights[j][k] *= -error*derivation;
             }
         }
         for(int i = 0; i < computedWeights.length; i++){

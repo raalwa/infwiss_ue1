@@ -6,6 +6,7 @@ public class InputLayer extends Layer {
         super(a);
     }
 
+    //forwards the input vector
     @Override
     public ArrayList<Double> feedSample(ArrayList<Double> vector){
         return child.feedSample(vector);
